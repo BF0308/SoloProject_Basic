@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -16,7 +17,5 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        userData = new UserData("주영훈",100000,100000);
     }
-    
 }

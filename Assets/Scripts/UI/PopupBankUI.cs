@@ -26,6 +26,7 @@ public class PopupBankUI : MonoBehaviour
         userNameText.text = GameManager.Instance.userData.userName;
         userCashText.text = GameManager.Instance.userData.userCash.ToString();
         balanceText.text = $"Balance\t{GameManager.Instance.userData.balance}";
+        DataManager.Instance.SaveUserData();
     }
 
     public void OnDepositUIBtnClick()

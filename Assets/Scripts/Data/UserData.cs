@@ -5,6 +5,9 @@ public class UserData
     public int userCash;
     public int balance;
     
+    public string userID;
+    public string userPW;
+    
     public UserData(string _userName, int _userCash, int _balance)
     {
         userName = _userName;
