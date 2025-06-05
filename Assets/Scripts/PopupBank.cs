@@ -9,6 +9,8 @@ public class PopupBank : MonoBehaviour
     public PopupBankUI popupBankUI;
     public TMP_InputField CustomDepositInputField; 
     public TMP_InputField CustomBalanceInputField;
+    public TMP_InputField RemittanceTarget;
+    public TMP_InputField RemittanceAmount;
     public Action ChangeMoney;
  
     public void Deposit(int amount)//입금
@@ -29,6 +31,19 @@ public class PopupBank : MonoBehaviour
     {
         int customText = int.Parse(CustomBalanceInputField.text);
         Calculation(-customText);
+    }
+
+    public void RemittanceBtn()
+    {
+        foreach (var user in GameManager.Instance.allUserData.users)
+        {
+            if (user.userName == RemittanceTarget.text)
+            {
+                user.balance += int.Parse(RemittanceAmount.text) ;
+                GameManager.Instance.currentUserData.balance -= int.Parse(RemittanceAmount.text);
+            }
+        }
+        ChangeMoney?.Invoke();
     }
 
     private void Calculation(int amount)//계산

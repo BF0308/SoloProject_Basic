@@ -11,6 +11,7 @@ public class PopupBankUI : MonoBehaviour
     public GameObject ATMUI;
     public GameObject DepositUI;
     public GameObject WithdrawUI;
+    public GameObject remittance;
 
     public PopupBank bank;
 
@@ -37,12 +38,16 @@ public class PopupBankUI : MonoBehaviour
     {
         DepositUI.SetActive(true);
         ATMUI.SetActive(false);
-        WithdrawUI.SetActive(false);
+    }
+
+    public void OnRemittanceBtnClick()
+    {
+        remittance.SetActive(true);
+        ATMUI.SetActive(false);
     }
     
     public void OnWithdrawUIBtnClick()
     {
-        DepositUI.SetActive(false);
         ATMUI.SetActive(false);
         WithdrawUI.SetActive(true);
     }
@@ -52,6 +57,7 @@ public class PopupBankUI : MonoBehaviour
         DepositUI.SetActive(false);
         ATMUI.SetActive(true);
         WithdrawUI.SetActive(false);
+        remittance.SetActive(false);
     }
 
     
