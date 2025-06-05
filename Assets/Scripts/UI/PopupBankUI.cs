@@ -1,7 +1,6 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PopupBankUI : MonoBehaviour
 {
@@ -14,7 +13,12 @@ public class PopupBankUI : MonoBehaviour
     public GameObject WithdrawUI;
 
     public PopupBank bank;
-    
+
+    private void Awake()
+    {
+        bank.popupBankUI = this;
+    }
+
     private void Start()
     {
         Refresh();
@@ -23,10 +27,10 @@ public class PopupBankUI : MonoBehaviour
 
     public void Refresh()
     {
-        userNameText.text = GameManager.Instance.userData.userName;
-        userCashText.text = GameManager.Instance.userData.userCash.ToString();
-        balanceText.text = $"Balance\t{GameManager.Instance.userData.balance}";
-        DataManager.Instance.SaveUserData();
+        userNameText.text = GameManager.Instance.currentUserData.userName;
+        userCashText.text = GameManager.Instance.currentUserData.userCash.ToString();
+        balanceText.text = $"Balance\t{GameManager.Instance.currentUserData.balance}";
+        DataManager.Instance.SaveAllUserData();
     }
 
     public void OnDepositUIBtnClick()

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.IO; 
 public class DataManager : MonoBehaviour
@@ -5,10 +7,8 @@ public class DataManager : MonoBehaviour
     private static DataManager _instance;
     public static DataManager Instance{get{return _instance;}set{_instance=value;}}
 
-    public string userID;
-    public string userPW;
-
     private string path;
+    private Action FailLogin;
     private void Awake()
     {
         if (_instance == null)
@@ -23,20 +23,42 @@ public class DataManager : MonoBehaviour
 
         if (File.Exists(path))
         {
-            LoadUserData();
+            LoadAllUserData();
+            SaveAllUserData();
         }
-        SaveUserData();
+        else
+        {
+            FailLogin?.Invoke();
+        }
+        
     }
 
-    public void SaveUserData()
+    public void SaveAllUserData()
     {
-        string data = JsonUtility.ToJson(GameManager.Instance.userData);
-        File.WriteAllText(path,data);
+        string json = JsonUtility.ToJson(GameManager.Instance.allUserData);
+        File.WriteAllText(path, json);
     }
 
-    public void LoadUserData()
+    public void LoadAllUserData()
     {
-        string data = File.ReadAllText(path);
-        GameManager.Instance.userData = JsonUtility.FromJson<UserData>(data);
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            GameManager.Instance.allUserData = JsonUtility.FromJson<UserDataList>(json);
+        }
     }
+
+    public void SaveNewUserData(UserData newUserData)
+    {
+        GameManager.Instance.allUserData.users.Add(newUserData);
+        GameManager.Instance.currentUserData = newUserData;
+        SaveAllUserData();
+    }
+    
+    [Serializable]
+    public class UserDataList
+    {
+        public List<UserData> users = new List<UserData>();
+    }
+    
 }

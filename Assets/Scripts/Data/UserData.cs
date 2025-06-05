@@ -8,10 +8,13 @@ public class UserData
     public string userID;
     public string userPW;
     
-    public UserData(string _userName, int _userCash, int _balance)
+    public UserData(string _userName, int _userCash, int _balance,string _userID, string _userPW)
     {
         userName = _userName;
         userCash = _userCash;
         balance = _balance;
+        userID = _userID;
+        userPW = _userPW;
     }
 }
+
