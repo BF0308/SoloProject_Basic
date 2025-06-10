@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
-    public static GameManager Instance{get{return _instance;}set{_instance=value;}}
+    public static GameManager Instance{get{return _instance;}}
     
     public DataManager.UserDataList allUserData = new DataManager.UserDataList();
     public UserData currentUserData;
+    
+    public Character Player;
     private void Awake()
     {
         if (_instance == null)
@@ -19,5 +21,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetData()
+    {
+        Player = new Character("코딩", 100000);
+        UIManager.Instance.UIMainMenu.UpdateUI();
+        UIManager.Instance.UIInventory.UpdateUI();
+        UIManager.Instance.UIStatus.UpdateUI();
     }
 }
